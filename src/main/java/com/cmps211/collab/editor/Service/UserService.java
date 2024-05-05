@@ -15,33 +15,14 @@ public class UserService {
         userRepository = ur;
     }
 
-    public String getUsername(int index) {
-        return userRepository.findAll().get(0).getUsername();
-    }
-
-    public String getEmail(int index) {
-        return userRepository.findAll().get(0).getEmail();
-    }
-
-    public void createUser(String username, String email, String password) {
+    public String signUp(String username, String password) {
+        if (userRepository.findById(username).isPresent()) {
+            return "F";
+        }
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setEmail(email);
         newUser.setPassword(password);
         userRepository.save(newUser);
-    }
-
-    public void updateUser(String username, String password) {
-        if (userRepository.findById(username).isPresent()) {
-            User updatedUser = userRepository.findById(username).get();
-            updatedUser.setPassword(password);
-            userRepository.save(updatedUser);
-        }
-    }
-
-    public void deleteUser(String username) {
-        if (userRepository.findById(username).isPresent()) {
-            userRepository.deleteById(username);
-        }
+        return "T";
     }
 }

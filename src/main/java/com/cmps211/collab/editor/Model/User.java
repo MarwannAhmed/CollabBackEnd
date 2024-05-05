@@ -12,6 +12,5 @@ import lombok.Getter;
 public class User {
     @Id
     @Getter @Setter String username;
-    @Getter @Setter String email;
     @Getter @Setter String password;
 }
