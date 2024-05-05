@@ -16,9 +16,6 @@ public class UserService {
     }
 
     public boolean logIn(User user) {
-        if (userRepository.findById(user.getUsername()).isPresent() && userRepository.findById(user.getUsername()).get().getPassword().equals(user.getPassword())) {
-            return true;
-        }
-        return false;
+        return userRepository.findById(user.getUsername()).isPresent() && userRepository.findById(user.getUsername()).get().getPassword().equals(user.getPassword());
     }
 }
