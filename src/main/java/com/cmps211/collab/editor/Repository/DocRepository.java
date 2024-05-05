@@ -4,6 +4,6 @@ import com.cmps211.collab.editor.Model.*;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface DocRepository extends MongoRepository<User, String> {
+public interface DocRepository extends MongoRepository<Doc, String> {
     
 }

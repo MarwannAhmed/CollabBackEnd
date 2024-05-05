@@ -15,12 +15,12 @@ public class Controller {
         userService = us;
     }
 
-    @GetMapping("/username")
+    @GetMapping("/email")
     public String getUsername() {
         return userService.getUsername(0);
     }
 
-    @GetMapping("/email")
+    @GetMapping("/username")
     public String getEmail() {
         return userService.getEmail(0);
     }
