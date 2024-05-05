@@ -5,6 +5,7 @@ import com.cmps211.collab.editor.Model.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ public class Controller {
         userService = us;
     }
 
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @PostMapping("/login")
     public ResponseEntity<User> logIn(@RequestBody User userInfo) {
         if (userService.logIn(userInfo)) {
