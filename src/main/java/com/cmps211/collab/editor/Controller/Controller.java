@@ -18,12 +18,6 @@ public class Controller {
         userService = us;
     }
 
-    // @PostMapping("/signup")
-    // public String signUp(@RequestBody String userInfo) {
-    //     String[] userInformation = userInfo.split(":");
-    //     return userService.signUp(userInformation[0], userInformation[1]);
-    // }
-
     @PostMapping("/login")
     public ResponseEntity<User> logIn(@RequestBody User userInfo) {
         if (userService.logIn(userInfo)) {

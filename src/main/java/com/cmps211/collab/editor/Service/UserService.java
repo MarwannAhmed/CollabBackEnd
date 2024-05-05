@@ -15,17 +15,6 @@ public class UserService {
         userRepository = ur;
     }
 
-    // public String signUp(String username, String password) {
-    //     if (userRepository.findById(username).isPresent()) {
-    //         return "F";
-    //     }
-    //     User newUser = new User();
-    //     newUser.setUsername(username);
-    //     newUser.setPassword(password);
-    //     userRepository.save(newUser);
-    //     return "T";
-    // }
-
     public boolean logIn(User user) {
         if (userRepository.findById(user.getUsername()).isPresent() && userRepository.findById(user.getUsername()).get().getPassword().equals(user.getPassword())) {
             return true;
