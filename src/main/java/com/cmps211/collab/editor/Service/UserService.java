@@ -26,10 +26,10 @@ public class UserService {
         return "T";
     }
 
-    public String logIn(String username, String password) {
-        if (userRepository.findById(username).isPresent() && userRepository.findById(username).get().getPassword().equals(password)) {
-            return "T";
+    public boolean logIn(User user) {
+        if (userRepository.findById(user.getUsername()).isPresent() && userRepository.findById(user.getUsername()).get().getPassword().equals(user.getPassword())) {
+            return true;
         }
-        return "F";
+        return false;
     }
 }
