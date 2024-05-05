@@ -25,4 +25,11 @@ public class UserService {
         userRepository.save(newUser);
         return "T";
     }
+
+    public String logIn(String username, String password) {
+        if (userRepository.findById(username).isPresent() && userRepository.findById(username).get().getPassword().equals(password)) {
+            return "T";
+        }
+        return "F";
+    }
 }
