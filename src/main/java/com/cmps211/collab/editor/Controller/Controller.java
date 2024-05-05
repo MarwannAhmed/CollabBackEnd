@@ -25,6 +25,6 @@ public class Controller {
         if (userService.logIn(userInfo)) {
             return ResponseEntity.ok().body(userInfo);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 }
