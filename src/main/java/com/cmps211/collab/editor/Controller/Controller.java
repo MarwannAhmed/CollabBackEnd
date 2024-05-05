@@ -2,7 +2,6 @@ package com.cmps211.collab.editor.Controller;
 
 import com.cmps211.collab.editor.Service.*;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,7 @@ public class Controller {
         return userService.signUp(userInformation[0], userInformation[1]);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public String logIn(@RequestBody String userInfo) {
         String[] userInformation = userInfo.split(":");
         return userService.logIn(userInformation[0], userInformation[1]);
