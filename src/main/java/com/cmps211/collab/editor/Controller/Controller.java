@@ -57,6 +57,6 @@ public class Controller {
         if ((doc = docService.get(name, username)) != null) {
             return ResponseEntity.ok().body(doc);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 }
