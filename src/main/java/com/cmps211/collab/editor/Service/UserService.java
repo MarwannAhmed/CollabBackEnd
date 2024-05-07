@@ -15,6 +15,10 @@ public class UserService {
         userRepository = ur;
     }
 
+    public boolean signUp(User user) {
+        return !userRepository.findById(user.getUsername()).isPresent();
+    }
+
     public boolean logIn(User user) {
         return userRepository.findById(user.getUsername()).isPresent() && userRepository.findById(user.getUsername()).get().getPassword().equals(user.getPassword());
     }

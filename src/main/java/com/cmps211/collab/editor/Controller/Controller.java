@@ -27,4 +27,13 @@ public class Controller {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
+
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app/register")
+    @PostMapping("/signup")
+    public ResponseEntity<User> signup(@RequestBody User userInfo) {
+        if (userService.signUp(userInfo)) {
+            return ResponseEntity.ok().body(userInfo);
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
 }
