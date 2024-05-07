@@ -1,4 +1,4 @@
-package com.cmps211.collab.editor.Configuration;
+/*package com.cmps211.collab.editor.Configuration;
 
 //import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,3 +21,4 @@ public class CorsConfig implements WebMvcConfigurer {
        //         .allowedHeaders("*"); // Allow all headers
     }
 }
+*/
