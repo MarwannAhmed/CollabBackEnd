@@ -11,6 +11,6 @@ import lombok.Getter;
 @Document(collection = "User")
 public class User {
     @Id
-    @Getter @Setter String username;
-    @Getter @Setter String password;
+    @Getter @Setter private String username;
+    @Getter @Setter private String password;
 }
