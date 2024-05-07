@@ -20,6 +20,7 @@ public class DocService {
         if (docRepository.findById(doc.getDocID()).isPresent()) {
             return false;
         }
+        doc.setContent("");
         doc.setUsers(new String[100]);
         doc.setSharePermissions(new boolean[100]);
         docRepository.save(doc);
