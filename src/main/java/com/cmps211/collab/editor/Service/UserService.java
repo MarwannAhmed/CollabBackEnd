@@ -16,11 +16,11 @@ public class UserService {
     }
 
     public boolean signUp(User user) {
-        if (!userRepository.findById(user.getUsername()).isPresent()) {
-            userRepository.save(user);
-            return true;
+        if (userRepository.findById(user.getUsername()).isPresent()) {
+            return false;
         }
-        return false;
+        userRepository.save(user);
+        return true;
     }
 
     public boolean logIn(User user) {
