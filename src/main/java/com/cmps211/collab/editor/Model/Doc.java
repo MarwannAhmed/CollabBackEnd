@@ -14,7 +14,7 @@ public class Doc {
     @Getter @Setter private String docID;
     @Getter @Setter private String docName;
     @Getter @Setter private String authorName;
-    @Getter @Setter private String content;
+    @Getter @Setter private char[] content;
     @Getter @Setter private String[] users;
     @Getter @Setter private boolean[] sharePermissions;
 }
