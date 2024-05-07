@@ -1,7 +1,5 @@
 package com.cmps211.collab.editor.Service;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +20,6 @@ public class DocService {
         if (docRepository.findById(doc.getDocID()).isPresent()) {
             return false;
         }
-        doc.setContent(new ArrayList<>());
-        doc.setUsers(new ArrayList<>());
-        doc.setSharePermissions(new ArrayList<>());
         docRepository.save(doc);
         return true;
     }
