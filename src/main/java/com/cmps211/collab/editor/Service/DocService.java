@@ -3,10 +3,9 @@ package com.cmps211.collab.editor.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 import com.cmps211.collab.editor.Model.Doc;
 import com.cmps211.collab.editor.Repository.DocRepository;
+import com.mongodb.MongoWriteException;
 
 @Service
 public class DocService {
@@ -18,15 +17,13 @@ public class DocService {
     }
 
     public boolean create(Doc doc) {
-        Optional<Doc> optDoc = docRepository.findByDocName(doc.getDocName());
-        if (optDoc.isPresent() && optDoc.get().getAuthorName().equals(doc.getAuthorName())) {
+        try {
+            docRepository.save(doc);
+            return true;
+        }
+        catch (MongoWriteException e) {
             return false;
         }
-        doc.setContent("");
-        doc.setUsers(new String[100]);
-        doc.setSharePermissions(new boolean[100]);
-        docRepository.save(doc);
-        return true;
     }
 
     public Doc get(String name, String username) {

@@ -1,6 +1,8 @@
 package com.cmps211.collab.editor.Model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
@@ -9,6 +11,9 @@ import lombok.Getter;
 
 @Data
 @Document(collection = "Doc")
+@CompoundIndexes({
+    @CompoundIndex(name = "uniqueIndex", def = "{'docName': 1, 'authorName': 1}", unique = true)
+})
 public class Doc {
     @Id
     @Getter @Setter private String docID;
