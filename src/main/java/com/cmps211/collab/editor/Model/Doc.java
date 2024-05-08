@@ -12,7 +12,7 @@ import lombok.Getter;
 @Data
 @Document(collection = "Doc")
 @CompoundIndexes({
-    @CompoundIndex(name = "uniqueIndex", def = "{'docName': 1, 'authorName': 1}", unique = true)
+    @CompoundIndex(name = "docName_authorName", def = "{'docName': 1, 'authorName': 1}", unique = true)
 })
 public class Doc {
     @Id
