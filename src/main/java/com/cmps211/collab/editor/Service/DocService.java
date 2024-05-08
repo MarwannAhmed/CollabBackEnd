@@ -19,7 +19,7 @@ public class DocService {
     public boolean create(Doc doc) {
         try {
             docRepository.save(doc);
-            return true;
+            return false;
         }
         catch (MongoWriteException e) {
             return false;
