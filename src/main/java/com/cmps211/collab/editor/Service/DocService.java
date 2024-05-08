@@ -16,12 +16,10 @@ public class DocService {
     }
 
     public boolean create(Doc doc) {
-        try {
-            docRepository.save(doc);
-            return true;
-        }
-        catch (Exception e) {
+        if (docRepository.findByDocNameAndAuthorName(doc.getDocName(), doc.getAuthorName()).isPresent()) {
             return false;
         }
+        docRepository.save(doc);
+        return true;
     }
 }
