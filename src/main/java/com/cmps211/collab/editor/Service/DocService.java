@@ -3,6 +3,8 @@ package com.cmps211.collab.editor.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import com.cmps211.collab.editor.Model.Doc;
 import com.cmps211.collab.editor.Repository.DocRepository;
 
@@ -21,5 +23,9 @@ public class DocService {
         }
         docRepository.save(doc);
         return true;
+    }
+
+    public List<Doc> myDocs(String authorName) {
+        return docRepository.findByAuthorName(authorName);
     }
 }
