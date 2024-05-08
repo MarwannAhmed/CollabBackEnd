@@ -3,6 +3,8 @@ package com.cmps211.collab.editor.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import com.cmps211.collab.editor.Model.Doc;
 import com.cmps211.collab.editor.Repository.DocRepository;
 
@@ -16,11 +18,11 @@ public class DocService {
     }
 
     public boolean create(Doc doc) {
-        doc.setDocID(doc.getAuthorName() + doc.getDocName());
-        if (docRepository.findById(doc.getDocID()).isPresent()) {
+        Optional<Doc> optDoc = docRepository.findByDocName(doc.getDocName());
+        if (optDoc.isPresent() && optDoc.get().getAuthorName().equals(doc.getAuthorName())) {
             return false;
         }
-        doc.setContent("Noor");
+        doc.setContent("");
         doc.setUsers(new String[100]);
         doc.setSharePermissions(new boolean[100]);
         docRepository.save(doc);
