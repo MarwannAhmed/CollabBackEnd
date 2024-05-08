@@ -28,4 +28,8 @@ public class DocService {
     public List<Doc> myDocs(String authorName) {
         return docRepository.findByAuthorName(authorName);
     }
+
+    public List<Doc> sharedDocs(String user) {
+        return docRepository.findByUsersContaining(user);
+    }
 }
