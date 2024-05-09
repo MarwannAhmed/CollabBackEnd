@@ -17,6 +17,8 @@ public class Doc {
     @Getter @Setter private String docName;
     @Getter @Setter private String authorName;
     @Getter @Setter private char[] content;
+    @Getter @Setter private boolean[] bold;
+    @Getter @Setter private boolean[] italic;
     @Getter @Setter private List<String> editors;
     @Getter @Setter private List<String> viewers;
 }
