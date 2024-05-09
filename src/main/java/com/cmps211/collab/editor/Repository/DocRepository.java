@@ -15,7 +15,10 @@ public interface DocRepository extends MongoRepository<Doc, String> {
     @Query(value = "{ 'authorName': ?0 }", fields = "{ 'docID': 1, 'docName': 1 }")
     List<Doc> findByAuthorName(String authorName);
 
-    @Query(value = "{ 'users': ?0 }", fields = "{ 'docID': 1, 'docName': 1 }")
-    List<Doc> findByUsersContaining(String user);
+    @Query(value = "{ 'editors': ?0 }", fields = "{ 'docID': 1, 'docName': 1 }")
+    List<Doc> findByEditorsContaining(String editor);
+
+    @Query(value = "{ 'viewers': ?0 }", fields = "{ 'docID': 1, 'docName': 1 }")
+    List<Doc> findByViewersContaining(String viewer);
 
 }

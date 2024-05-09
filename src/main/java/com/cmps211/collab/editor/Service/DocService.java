@@ -29,7 +29,11 @@ public class DocService {
         return docRepository.findByAuthorName(authorName);
     }
 
-    public List<Doc> sharedDocs(String user) {
-        return docRepository.findByUsersContaining(user);
+    public List<Doc> editDocs(String user) {
+        return docRepository.findByEditorsContaining(user);
+    }
+
+    public List<Doc> viewDocs(String user) {
+        return docRepository.findByViewersContaining(user);
     }
 }

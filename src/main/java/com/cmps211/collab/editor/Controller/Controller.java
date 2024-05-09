@@ -59,8 +59,14 @@ public class Controller {
     }
 
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
-    @GetMapping("/shareddocs/{user}")
-    public ResponseEntity<List<Doc>> sharedDocs(@PathVariable String user) {
-        return ResponseEntity.ok().body(docService.sharedDocs(user));
+    @GetMapping("/editdocs/{user}")
+    public ResponseEntity<List<Doc>> editDocs(@PathVariable String user) {
+        return ResponseEntity.ok().body(docService.editDocs(user));
+    }
+
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
+    @GetMapping("/viewdocs/{user}")
+    public ResponseEntity<List<Doc>> viewDocs(@PathVariable String user) {
+        return ResponseEntity.ok().body(docService.viewDocs(user));
     }
 }
