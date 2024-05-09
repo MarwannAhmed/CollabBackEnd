@@ -76,5 +76,10 @@ public class Controller {
         return ResponseEntity.ok().body(docService.viewDocs(user));
     }
 
-    
+    // mapping for retrieval of document content requests
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
+    @GetMapping("/content/{doc}")
+    public ResponseEntity<char[]> viewDocs(@PathVariable Doc doc) {
+        return ResponseEntity.ok().body(docService.getContent(doc.getDocID()));
+    }
 }

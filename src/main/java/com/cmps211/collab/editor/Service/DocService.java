@@ -36,4 +36,8 @@ public class DocService {
     public List<Doc> viewDocs(String user) {
         return docRepository.findByViewersContaining(user);
     }
+
+    public char[] getContent(String docID) {
+        return docRepository.findById(docID).get().getContent();
+    }
 }
