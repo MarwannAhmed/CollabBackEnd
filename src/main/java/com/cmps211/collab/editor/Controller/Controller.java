@@ -82,4 +82,18 @@ public class Controller {
     public ResponseEntity<char[]> getContent(@PathVariable String docID) {
         return ResponseEntity.ok().body(docService.getContent(docID));
     }
+
+    // mapping for retrieval of document viewers requests
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
+    @GetMapping("/viewers/{docID}")
+    public ResponseEntity<String []> getViewers(@PathVariable String docID) {
+        return ResponseEntity.ok().body(docService.getViewers(docID));
+    }
+
+    // mapping for retrieval of document editors requests
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
+    @GetMapping("/editors/{docID}")
+    public ResponseEntity<String []> getEditors(@PathVariable String docID) {
+        return ResponseEntity.ok().body(docService.getEditors(docID));
+    }
 }

@@ -40,4 +40,12 @@ public class DocService {
     public char[] getContent(String docID) {
         return docRepository.findById(docID).get().getContent();
     }
+
+    public String[] getViewers(String docID) {
+        return docRepository.findById(docID).get().getViewers();
+    }
+
+    public String[] getEditors(String docID) {
+        return docRepository.findById(docID).get().getEditors();
+    }
 }
