@@ -25,6 +25,7 @@ public class Controller {
         docService = ds;
     }
 
+    // mapping for login requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @PostMapping("/login")
     public ResponseEntity<User> logIn(@RequestBody User userInfo) {
@@ -34,6 +35,7 @@ public class Controller {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
+    // mapping for signup requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody User userInfo) {
@@ -43,6 +45,7 @@ public class Controller {
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
+    // mapping for document creation requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @PostMapping("/adddoc")
     public ResponseEntity<Doc> create(@RequestBody Doc docInfo) {
@@ -52,21 +55,26 @@ public class Controller {
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
+    // mapping for retrieval of owned documents requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @GetMapping("/owneddocs/{author}")
     public ResponseEntity<List<Doc>> myDocs(@PathVariable String author) {
         return ResponseEntity.ok().body(docService.myDocs(author));
     }
 
+    // mapping for retrieval of shared documents (with edit permission) requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @GetMapping("/editdocs/{user}")
     public ResponseEntity<List<Doc>> editDocs(@PathVariable String user) {
         return ResponseEntity.ok().body(docService.editDocs(user));
     }
 
+    // mapping for retrieval of shared documents (without edit permission) requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @GetMapping("/viewdocs/{user}")
     public ResponseEntity<List<Doc>> viewDocs(@PathVariable String user) {
         return ResponseEntity.ok().body(docService.viewDocs(user));
     }
+
+    
 }
