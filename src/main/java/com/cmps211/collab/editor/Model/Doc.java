@@ -1,5 +1,7 @@
 package com.cmps211.collab.editor.Model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +17,6 @@ public class Doc {
     @Getter @Setter private String docName;
     @Getter @Setter private String authorName;
     @Getter @Setter private char[] content;
-    @Getter @Setter private String[] editors;
-    @Getter @Setter private String[] viewers;
+    @Getter @Setter private List<String> editors;
+    @Getter @Setter private List<String> viewers;
 }

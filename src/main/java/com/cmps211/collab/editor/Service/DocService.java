@@ -41,11 +41,25 @@ public class DocService {
         return docRepository.findById(docID).get().getContent();
     }
 
-    public String[] getViewers(String docID) {
+    public List<String> getViewers(String docID) {
         return docRepository.findById(docID).get().getViewers();
     }
 
-    public String[] getEditors(String docID) {
+    public List<String> getEditors(String docID) {
         return docRepository.findById(docID).get().getEditors();
+    }
+
+    public void makeViewer(String docID, String editor) {
+        Doc doc = docRepository.findById(docID).get();
+        doc.getEditors().remove(editor);
+        doc.getViewers().add(editor);
+        docRepository.save(doc);
+    }
+
+    public void makeEditor(String docID, String viewer) {
+        Doc doc = docRepository.findById(docID).get();
+        doc.getViewers().remove(viewer);
+        doc.getEditors().add(viewer);
+        docRepository.save(doc);
     }
 }
