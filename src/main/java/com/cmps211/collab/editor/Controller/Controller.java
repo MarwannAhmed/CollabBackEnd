@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -95,5 +96,23 @@ public class Controller {
     @GetMapping("/editors/{docID}")
     public ResponseEntity<List<String>> getEditors(@PathVariable String docID) {
         return ResponseEntity.ok().body(docService.getEditors(docID));
+    }
+
+    // mapping for renaming of documents requests
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
+    @PostMapping("/rename")
+    public ResponseEntity<Doc> rename(@RequestBody Doc docInfo) {
+        if (docService.rename(docInfo)) {
+            return ResponseEntity.ok().body(docInfo);
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    }
+
+    // mapping for deletion of documents requests
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
+    @DeleteMapping("/delete/{docID}")
+    public ResponseEntity<Doc> delete(@PathVariable String docID) {
+        docService.delete(docID);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

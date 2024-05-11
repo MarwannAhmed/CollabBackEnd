@@ -62,4 +62,18 @@ public class DocService {
         doc.getEditors().add(viewer);
         docRepository.save(doc);
     }
+
+    public boolean rename(Doc doc) {
+        if (docRepository.findByDocNameAndAuthorName(doc.getDocName(), doc.getAuthorName()).isPresent()) {
+            return false;
+        }
+        Doc temp = docRepository.findById(doc.getDocID()).get();
+        temp.setDocName(doc.getDocName());
+        docRepository.save(temp);
+        return true;
+    }
+
+    public void delete(String docID) {
+        docRepository.deleteById(docID);
+    }
 }
