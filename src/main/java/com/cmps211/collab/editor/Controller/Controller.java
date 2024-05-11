@@ -108,6 +108,7 @@ public class Controller {
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
 
+    //
     // mapping for deletion of documents requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
     @DeleteMapping("/delete/{docID}")
