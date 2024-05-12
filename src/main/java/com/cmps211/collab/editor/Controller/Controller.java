@@ -118,14 +118,14 @@ public class Controller {
 
     // mapping for sharing of documents requests
     @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
-    @PostMapping("/share")
-    public ResponseEntity<Doc> share(@RequestBody Doc docInfo) {
+    @PostMapping("/share/{access}/{username}")
+    public ResponseEntity<Doc> share(@RequestBody Doc docInfo, @PathVariable String access,
+            @PathVariable String username) {
         Integer res;
-        if (docInfo.getViewers().size() != 0) {
-            String username = docInfo.getViewers().get(0);
-            if (!userService.doesExist(username)) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
+        if (!userService.doesExist(username)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        if (access.equals("viewer")) {
             res = docService.makeViewer(docInfo.getDocID(), username);
             if (res == 0) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -133,10 +133,6 @@ public class Controller {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
         } else {
-            String username = docInfo.getEditors().get(0);
-            if (!userService.doesExist(username)) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
             res = docService.makeEditor(docInfo.getDocID(), username);
             if (res == 0) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
