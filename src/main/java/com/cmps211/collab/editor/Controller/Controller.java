@@ -115,4 +115,35 @@ public class Controller {
         docService.delete(docID);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    // mapping for sharing of documents requests
+    @CrossOrigin(origins = "https://collaborativeeditor.vercel.app")
+    @PostMapping("/share")
+    public ResponseEntity<Doc> share(@RequestBody Doc docInfo) {
+        Integer res;
+        if (docInfo.getViewers().size() != 0) {
+            String username = docInfo.getViewers().get(0);
+            if (!userService.doesExist(username)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            res = docService.makeViewer(docInfo.getDocID(), username);
+            if (res == 0) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            } else if (res == 2) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } else {
+            String username = docInfo.getEditors().get(0);
+            if (!userService.doesExist(username)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
+            res = docService.makeEditor(docInfo.getDocID(), username);
+            if (res == 0) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            } else if (res == 2) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

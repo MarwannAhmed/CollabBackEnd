@@ -49,18 +49,44 @@ public class DocService {
         return docRepository.findById(docID).get().getEditors();
     }
 
-    public void makeViewer(String docID, String editor) {
+    public Integer makeViewer(String docID, String username) {
         Doc doc = docRepository.findById(docID).get();
-        doc.getEditors().remove(editor);
-        doc.getViewers().add(editor);
+        if (doc.getAuthorName().equals(username)) {
+            return 2;
+        }
+        if (doc.getViewers().contains(username)) {
+            return 0;
+        }
+        if (doc.getEditors().contains(username)) {
+            List<String> editors = doc.getEditors();
+            editors.remove(username);
+            doc.setEditors(editors);
+        }
+        List<String> viewers = doc.getViewers();
+        viewers.add(username);
+        doc.setViewers(viewers);
         docRepository.save(doc);
+        return 1;
     }
 
-    public void makeEditor(String docID, String viewer) {
+    public Integer makeEditor(String docID, String username) {
         Doc doc = docRepository.findById(docID).get();
-        doc.getViewers().remove(viewer);
-        doc.getEditors().add(viewer);
+        if (doc.getAuthorName().equals(username)) {
+            return 2;
+        }
+        if (doc.getEditors().contains(username)) {
+            return 0;
+        }
+        if (doc.getViewers().contains(username)) {
+            List<String> viewers = doc.getViewers();
+            viewers.remove(username);
+            doc.setViewers(viewers);
+        }
+        List<String> editors = doc.getEditors();
+        editors.add(username);
+        doc.setEditors(editors);
         docRepository.save(doc);
+        return 1;
     }
 
     public boolean rename(Doc doc) {
