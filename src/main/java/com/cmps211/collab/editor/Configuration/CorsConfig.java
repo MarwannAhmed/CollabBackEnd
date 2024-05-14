@@ -11,13 +11,20 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Allow CORS for all endpoints
-                .allowedOrigins("https://collaborativeeditor.vercel.app") // Replace with your client's URL
+                .allowedOrigins("*") // Replace with your client's URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Add allowed methods as required
                 .allowedHeaders("*"); // Allow all headers
+        // registry.addMapping("/**") // Allow CORS for all endpoints
+        // .allowedOrigins("https://collaborativeeditor.vercel.app") // Replace with
+        // your client's URL
+        // .allowedMethods("GET", "POST", "PUT", "DELETE") // Add allowed methods as
+        // required
+        // .allowedHeaders("*"); // Allow all headers
 
-       // registry.addMapping("/**") // Allow CORS for all endpoints
-       //         .allowedOrigins("https://collaborativeeditor.vercel.app/*") // Allow requests from the specified origin and its subpaths
-       //         .allowedMethods("*") // Allow all HTTP methods
-       //         .allowedHeaders("*"); // Allow all headers
+        // registry.addMapping("/**") // Allow CORS for all endpoints
+        // .allowedOrigins("https://collaborativeeditor.vercel.app/*") // Allow requests
+        // from the specified origin and its subpaths
+        // .allowedMethods("*") // Allow all HTTP methods
+        // .allowedHeaders("*"); // Allow all headers
     }
 }

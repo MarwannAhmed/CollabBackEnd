@@ -13,12 +13,28 @@ import lombok.Setter;
 @Document(collection = "Doc")
 public class Doc {
     @Id
-    @Getter @Setter private String docID;
-    @Getter @Setter private String docName;
-    @Getter @Setter private String authorName;
-    @Getter @Setter private char[] content;
-    @Getter @Setter private boolean[] bold;
-    @Getter @Setter private boolean[] italic;
-    @Getter @Setter private List<String> editors;
-    @Getter @Setter private List<String> viewers;
+    @Getter
+    @Setter
+    private String docID;
+    @Getter
+    @Setter
+    private String docName;
+    @Getter
+    @Setter
+    private String authorName;
+    @Getter
+    @Setter
+    private char[] content;
+    @Getter
+    @Setter
+    private boolean[] bold;
+    @Getter
+    @Setter
+    private boolean[] italic;
+    @Getter
+    @Setter
+    private List<String> editors;
+    @Getter
+    @Setter
+    private List<String> viewers;
 }
