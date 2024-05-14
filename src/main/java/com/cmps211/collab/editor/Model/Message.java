@@ -16,7 +16,7 @@ public class Message {
     @Getter
     @Setter
     private Integer index;
-    @Getter
-    @Setter
-    private String to;
+    // @Getter
+    // @Setter
+    // private String to;
 }
