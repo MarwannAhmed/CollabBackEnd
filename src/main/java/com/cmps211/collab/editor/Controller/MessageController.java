@@ -14,11 +14,23 @@ public class MessageController {
 
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
+    private Object mutex;
+    private int lock = 0;
 
     @MessageMapping("/application/{docID}")
     @SendTo("/all/messages/{docID}")
-    public Message send(final Message message) throws Exception {
-        return message;
+    public void send(final Message message) throws Exception {
+        synchronized (mutex) {
+            if (lock == 0) {
+                lock = 1;
+            } else {
+                return;
+            }
+        }
+        simpMessagingTemplate.convertAndSend("/all/messages/{docID}", message);
+        synchronized (mutex) {
+            lock = 0;
+        }
     }
 
     // @MessageMapping("/private")

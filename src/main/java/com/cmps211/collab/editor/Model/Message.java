@@ -15,7 +15,16 @@ public class Message {
     private char character;
     @Getter
     @Setter
-    private Integer index;
+    private Integer startIndex;
+    @Getter
+    @Setter
+    private Integer endIndex;
+    @Getter
+    @Setter
+    private boolean isBold;
+    @Getter
+    @Setter
+    private boolean isItalic;
     @Getter
     @Setter
     private String sessionID;
