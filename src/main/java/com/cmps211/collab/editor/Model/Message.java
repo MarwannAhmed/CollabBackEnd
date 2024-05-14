@@ -16,6 +16,9 @@ public class Message {
     @Getter
     @Setter
     private Integer index;
+    @Getter
+    @Setter
+    private String sessionID;
     // @Getter
     // @Setter
     // private String to;
