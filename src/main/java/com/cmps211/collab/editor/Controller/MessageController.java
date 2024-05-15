@@ -19,13 +19,13 @@ public class MessageController {
     private DocService docService;
 
     private final Object mutex = new Object();
-    private int lock = 0;
+    private int sem = 0;
 
     @MessageMapping("/application/{docID}")
     public void passMessage(final Message message, @DestinationVariable String docID) {
         synchronized (mutex) {
-            if (lock == 0) {
-                lock = 1;
+            if (sem == 0) {
+                sem = 1;
             } else {
                 return;
             }
@@ -33,7 +33,7 @@ public class MessageController {
         messagingTemplate.convertAndSend("/all/messages/" + docID, message);
         docService.changeContent(message, docID);
         synchronized (mutex) {
-            lock = 0;
+            sem = 0;
         }
 
     }
