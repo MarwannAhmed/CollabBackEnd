@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import com.cmps211.collab.editor.Model.Doc;
+import com.cmps211.collab.editor.Model.Message;
 import com.cmps211.collab.editor.Repository.DocRepository;
 
 @Service
@@ -101,5 +102,9 @@ public class DocService {
 
     public void delete(String docID) {
         docRepository.deleteById(docID);
+    }
+
+    public void changeContent(Message message, String docID) {
+
     }
 }
