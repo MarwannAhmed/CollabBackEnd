@@ -10,6 +10,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 // import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+// import java.util.concurrent.BlockingQueue;
+// import java.util.concurrent.LinkedBlockingQueue;
 
 @Controller
 public class MessageController {
@@ -18,13 +20,14 @@ public class MessageController {
 
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
+    // private BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
     private Object semaphore;
-    private boolean free;
+    private boolean free = true;
 
     MessageController(DocService ds) {
-        semaphore = new Object();
+        // semaphore = new Object();
         docService = ds;
-        free = true;
+        // free = true;
     }
 
     @MessageMapping("/application/{docID}")
