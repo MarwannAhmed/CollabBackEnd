@@ -8,6 +8,8 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Controller
 public class MessageController {
@@ -17,31 +19,19 @@ public class MessageController {
 
     @Autowired
     private DocService docService;
-
-    private final Object mutex = new Object();
-    private int sem = 0;
+    private final Lock lock = new ReentrantLock();
 
     @MessageMapping("/application/{docID}")
     public void passMessage(final Message message, @DestinationVariable String docID) {
-        // synchronized (mutex) {
-        // if (sem == 0) {
-        // sem = 1;
-        // } else {
-        // return;
-        // }
-        // }
-        messagingTemplate.convertAndSend("/all/messages/" + docID, message);
-        docService.changeContent(message, docID);
-        synchronized (mutex) {
-            sem = 0;
+        if (lock.tryLock()) {
+            try {
+                messagingTemplate.convertAndSend("/all/messages/" + docID, message);
+                docService.changeContent(message, docID);
+            } finally {
+                lock.unlock();
+            }
+        } else {
+            return;
         }
-
     }
 }
-
-// @MessageMapping("/private")
-// public void sendToSpecificUser(@Payload Message message) {
-// simpMessagingTemplate.convertAndSendToUser(message.getTo(), "/specific",
-// message);
-// }
-// }
