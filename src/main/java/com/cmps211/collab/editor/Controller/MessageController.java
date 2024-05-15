@@ -22,7 +22,7 @@ public class MessageController {
     private final Lock lock = new ReentrantLock();
 
     @MessageMapping("/application/{docID}")
-    public void passMessage(final Message message, @DestinationVariable String docID) {
+    public void send(final Message message, @DestinationVariable String docID) {
         if (lock.tryLock()) {
             try {
                 messagingTemplate.convertAndSend("/all/messages/" + docID, message);
