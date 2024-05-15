@@ -22,6 +22,7 @@ public class MessageController {
     private boolean free;
 
     MessageController(DocService ds) {
+        semaphore = new Object();
         docService = ds;
         free = true;
     }
