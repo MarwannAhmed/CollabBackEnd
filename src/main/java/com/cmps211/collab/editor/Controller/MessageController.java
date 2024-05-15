@@ -10,8 +10,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 // import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-// import java.util.concurrent.BlockingQueue;
-// import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @Controller
 public class MessageController {
@@ -20,9 +20,9 @@ public class MessageController {
 
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
-    // private BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>();
-    private Object semaphore;
-    private boolean free = true;
+    private BlockingQueue<Message> messageQueue = new LinkedBlockingQueue<>(1);
+    // private Object semaphore;
+    // private boolean free = true;
 
     MessageController(DocService ds) {
         // semaphore = new Object();
@@ -32,19 +32,23 @@ public class MessageController {
 
     @MessageMapping("/application/{docID}")
     public void send(final Message message, @DestinationVariable String docID) throws Exception {
-        synchronized (semaphore) {
-            System.out.println(free);
-            if (free == true) {
-                free = false;
-            } else {
-                return;
-            }
+        // synchronized (semaphore) {
+        // System.out.println(free);
+        // if (free == true) {
+        // free = false;
+        // } else {
+        // return;
+        // }
+        // }
+        if (!messageQueue.offer(message)) {
+            return;
         }
         simpMessagingTemplate.convertAndSend("/all/messages/" + docID, message);
         docService.changeContent(message, docID);
-        synchronized (semaphore) {
-            free = true;
-        }
+        messageQueue.poll();
+        // synchronized (semaphore) {
+        // free = true;
+        // }
     }
 
     // @MessageMapping("/private")
