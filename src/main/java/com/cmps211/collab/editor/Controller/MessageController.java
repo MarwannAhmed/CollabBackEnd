@@ -35,7 +35,7 @@ public class MessageController {
                 return;
             }
         }
-        simpMessagingTemplate.convertAndSend("/all/messages/" + docID, message);
+        simpMessagingTemplate.convertAndSend("/all/messages/{docID}", message);
         docService.changeContent(message, docID);
         synchronized (mutex) {
             lock = 0;
