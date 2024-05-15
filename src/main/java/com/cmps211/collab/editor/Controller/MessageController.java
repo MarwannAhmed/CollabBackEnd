@@ -18,27 +18,28 @@ public class MessageController {
 
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
-    private Object mutex;
-    private int lock;
+    private Object semaphore;
+    private boolean free;
 
     MessageController(DocService ds) {
         docService = ds;
-        lock = 0;
+        free = true;
     }
 
     @MessageMapping("/application/{docID}")
     public void send(final Message message, @DestinationVariable String docID) throws Exception {
-        // synchronized (mutex) {
-        // if (lock == 0) {
-        // lock = 1;
-        // } else {
-        // return;
-        // }
-        // }
+        synchronized (semaphore) {
+            System.out.println(free);
+            if (free == true) {
+                free = false;
+            } else {
+                return;
+            }
+        }
         simpMessagingTemplate.convertAndSend("/all/messages/" + docID, message);
         docService.changeContent(message, docID);
-        synchronized (mutex) {
-            lock = 0;
+        synchronized (semaphore) {
+            free = true;
         }
     }
 
