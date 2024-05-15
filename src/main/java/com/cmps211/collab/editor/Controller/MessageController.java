@@ -28,13 +28,13 @@ public class MessageController {
 
     @MessageMapping("/application/{docID}")
     public void send(final Message message, @DestinationVariable String docID) throws Exception {
-        synchronized (mutex) {
-            if (lock == 0) {
-                lock = 1;
-            } else {
-                return;
-            }
-        }
+        // synchronized (mutex) {
+        // if (lock == 0) {
+        // lock = 1;
+        // } else {
+        // return;
+        // }
+        // }
         simpMessagingTemplate.convertAndSend("/all/messages/" + docID, message);
         docService.changeContent(message, docID);
         synchronized (mutex) {
