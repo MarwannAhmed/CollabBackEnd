@@ -15,7 +15,7 @@ public class Message {
     private char character;
     @Getter
     @Setter
-    private Integer startIndex;
+    private Integer index;
     @Getter
     @Setter
     private Integer endIndex;
