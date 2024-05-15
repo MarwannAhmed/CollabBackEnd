@@ -23,13 +23,13 @@ public class MessageController {
 
     @MessageMapping("/application/{docID}")
     public void passMessage(final Message message, @DestinationVariable String docID) {
-        synchronized (mutex) {
-            if (sem == 0) {
-                sem = 1;
-            } else {
-                return;
-            }
-        }
+        // synchronized (mutex) {
+        // if (sem == 0) {
+        // sem = 1;
+        // } else {
+        // return;
+        // }
+        // }
         messagingTemplate.convertAndSend("/all/messages/" + docID, message);
         docService.changeContent(message, docID);
         synchronized (mutex) {
