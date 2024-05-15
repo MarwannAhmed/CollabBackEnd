@@ -116,6 +116,7 @@ public class DocService {
             doc.setContent(newContent);
             docRepository.save(doc);
         } else {
+            message.setIndex(message.getIndex() + 1);
             char[] newContent = new char[oldContent.length - 1];
             System.arraycopy(oldContent, 0, newContent, 0, message.getIndex());
             System.arraycopy(oldContent, message.getIndex() + 1, newContent, message.getIndex(),
