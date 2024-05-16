@@ -115,13 +115,27 @@ public class DocService {
             newContent[message.getIndex()] = message.getCharacter();
             doc.setContent(newContent);
             docRepository.save(doc);
-        } else {
+        } else if (message.getOperation() == 1) {
             message.setIndex(message.getIndex() + 1);
             char[] newContent = new char[oldContent.length - 1];
             System.arraycopy(oldContent, 0, newContent, 0, message.getIndex());
             System.arraycopy(oldContent, message.getIndex() + 1, newContent, message.getIndex(),
                     oldContent.length - message.getIndex() - 1);
             doc.setContent(newContent);
+            docRepository.save(doc);
+        } else if (message.getOperation() == 2) {
+            boolean[] newBold = doc.getBold();
+            for (Integer i = message.getIndex(); i < message.getEndIndex(); i++) {
+                newBold[i] = true;
+            }
+            doc.setBold(newBold);
+            docRepository.save(doc);
+        } else if (message.getOperation() == 3) {
+            boolean[] newItalic = doc.getItalic();
+            for (Integer i = message.getIndex(); i < message.getEndIndex(); i++) {
+                newItalic[i] = true;
+            }
+            doc.setItalic(newItalic);
             docRepository.save(doc);
         }
     }
